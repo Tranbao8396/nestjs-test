@@ -1,0 +1,25 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CreateCourseDto {
+  id: Int!
+  title: String!
+  slug: String!
+  content: String!
+  author: String!
+  url: String!
+}
+
+type CreateUserDto {
+  id: Int!
+  name: String!
+  password: String!
+}
+
+type Query {
+  course(slug: String!): CreateCourseDto!
+  courses: [CreateCourseDto!]!
+  user(name: String!): CreateUserDto!
+  users: [CreateUserDto!]!
+}
