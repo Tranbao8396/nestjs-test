@@ -10,4 +10,7 @@ export class CreateUserDto {
 
   @Field()
   password: string;
+
+  @Field()
+  roles: string;
 }

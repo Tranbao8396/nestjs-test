@@ -15,11 +15,12 @@ type CreateUserDto {
   id: Int!
   name: String!
   password: String!
+  roles: String!
 }
 
 type Query {
   course(slug: String!): CreateCourseDto!
   courses: [CreateCourseDto!]!
-  user(name: String!): CreateUserDto!
+  user(id: Float!): CreateUserDto!
   users: [CreateUserDto!]!
 }

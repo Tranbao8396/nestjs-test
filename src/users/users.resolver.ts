@@ -7,8 +7,8 @@ export class UsersResolver {
   constructor(private usersService: UsersService) {}
 
   @Query((returns) => CreateUserDto)
-  async user(@Args('name') name: string): Promise<any> {
-    return await this.usersService.getUser(name);
+  async user(@Args('id') id: number): Promise<any> {
+    return await this.usersService.getUser(id);
   }
 
   @Query((returns) => [CreateUserDto])

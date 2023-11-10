@@ -12,14 +12,14 @@ export class UsersController {
     return users;
   }
 
-  @Get(':UserName')
-  async getUser(@Param('UserName') UserName) {
-    const user = await this.usersService.getUser(UserName);
+  @Get(':Userid')
+  async getUser(@Param('Userid') UserId) {
+    const user = await this.usersService.getUser(UserId);
     return user;
   }
 
   @Post()
-  async addCourse(@Body() createUserDto: CreateUserDto) {
+  async addUser(@Body() createUserDto: CreateUserDto) {
     const user = await this.usersService.addUser(createUserDto);
     return user;
   }
@@ -27,6 +27,15 @@ export class UsersController {
   @Post('/check')
   async checkUser(@Body() createUserDto: CreateUserDto) {
     const user = await this.usersService.checkUser(createUserDto);
+    return user;
+  }
+
+  @Post(':Userid')
+  async updateUser(
+    @Param('Userid') UserId,
+    @Body() createUserDto: CreateUserDto,
+  ) {
+    const user = await this.usersService.updateUser(UserId, createUserDto);
     return user;
   }
 

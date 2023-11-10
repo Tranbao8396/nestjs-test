@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcrypt';
 import { Injectable, HttpException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,9 +15,9 @@ export class UsersService {
     return await this.usersRepository.find();
   }
 
-  async getUser(UserName: string): Promise<Users | null> {
-    const name = String(UserName);
-    const user = await this.usersRepository.findOneBy({ name });
+  async getUser(UserId: number): Promise<Users | null> {
+    const id = Number(UserId);
+    const user = await this.usersRepository.findOneBy({ id });
     if (!user) {
       throw new HttpException('Users does not exist', 404);
     } else {
@@ -32,7 +33,8 @@ export class UsersService {
       throw new HttpException('Users does not exist or correct', 404);
     } else {
       const password = userdata.password;
-      if (password === user.password) {
+      const check = await bcrypt.compare(user.password, password);
+      if (check) {
         return userdata;
       } else {
         throw new HttpException('Users pass does not correct', 404);
@@ -46,6 +48,16 @@ export class UsersService {
       return add;
     } else {
       throw new HttpException('cannot add', 404);
+    }
+  }
+
+  async updateUser(userId: number, user: any): Promise<any> {
+    const id = Number(userId);
+    const update = await this.usersRepository.update(id, user);
+    if (update) {
+      return 'success';
+    } else {
+      throw new HttpException('cannot update', 404);
     }
   }
 

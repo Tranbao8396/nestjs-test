@@ -33,6 +33,16 @@ export class CoursesService {
     }
   }
 
+  async updateCourse(courseId: number, course: any): Promise<any> {
+    const id = Number(courseId);
+    const update = await this.postsRepository.update(id, course);
+    if (update) {
+      return 'success';
+    } else {
+      throw new HttpException('cannot update', 404);
+    }
+  }
+
   async deleteCourse(courseId: number): Promise<void> {
     const id = Number(courseId);
     const course = await this.postsRepository.findOneBy({ id });

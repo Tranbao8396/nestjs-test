@@ -24,6 +24,18 @@ export class CoursesController {
     return course;
   }
 
+  @Post(':courseId')
+  async updateCourse(
+    @Param('courseId') courseId,
+    @Body() createCourseDto: CreateCourseDto,
+  ) {
+    const course = await this.coursesService.updateCourse(
+      courseId,
+      createCourseDto,
+    );
+    return course;
+  }
+
   @Delete(':courseId')
   async deleteCourse(@Param('courseId') courseId) {
     const courses = await this.coursesService.deleteCourse(courseId);
